@@ -17,5 +17,6 @@ export const Area = styled.div`
     text-align: center;
     border-bottom: 1px solid #444;
     padding-bottom: 20px;
+    margin-bottom:20px;
   }
 `;
