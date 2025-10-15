@@ -4,21 +4,23 @@ import * as C from "./App.styles";
 import { Lista } from "./types/types";
 import { ListItem } from "./components/ListItem";
 import { AddArea } from "./components/AddArea"
+import { v4 as uuidv4 } from 'uuid'
 
 const App = () => {
   const [list, setList] = useState<Lista[]>([
-    { id: Date.now(), name: "Apender React", done: false },
-    { id: Date.now(), name: "Aprender Back-End", done: true },
+    { id: uuidv4(), name: "Apender React", done: false },
+    { id: uuidv4(), name: "Aprender Back-End", done: true },
   ]);
 
   const handleAddTask = (taskName: string) => {
-    let newList = [...list]
-    newList.push({
-      id:Date.now(),
+     setList([...list,{id:uuidv4(),
       name:taskName,
-      done:false
-    })
-    setList(newList)
+      done:false}])
+  }
+
+  const handleTogleDone = (id: number | string, newTogle: boolean) => {
+       
+    setList(list.map(item => item.id === id ? {...item, done:newTogle} : item))
   }
 
 
@@ -30,7 +32,7 @@ const App = () => {
         </h1>
           <AddArea onEnter={handleAddTask}/>
         {list.map(item => (
-          <ListItem key={item.id} item={item}/>
+          <ListItem key={item.id} item={item} onTogle={handleTogleDone}/>
         ))}
       </C.Area>
     </C.Container>
